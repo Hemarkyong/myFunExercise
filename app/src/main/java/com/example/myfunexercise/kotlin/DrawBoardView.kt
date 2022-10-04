@@ -31,7 +31,7 @@ class DrawBoardView @JvmOverloads constructor(
         viewWidth = 0f
         viewHeight = 0f
         res = context.resources;
-        typeface = Typeface.createFromAsset(getResources().getAssets(), "夏行楷.ttf");
+        typeface = Typeface.createFromAsset(getResources().getAssets(), "fonts/夏行楷.ttf");
         //初始化defaultPath
         defaultPath = Path()
         defaultPaint = Paint(Paint.ANTI_ALIAS_FLAG or Paint.DITHER_FLAG)
