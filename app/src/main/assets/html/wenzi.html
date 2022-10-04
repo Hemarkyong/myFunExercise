@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>拼音</title>
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <script src="jquery.min.js"></script>
+    <script src="bootstrap.min.js"></script>
+    <script src="vue.global.min.js"></script>
+    <script src="pinyinghanzi.js"></script>
+    <style>
+  .sc-item{
+    width: 15%;
+	background: #CEF4FD;
+	margin:1px;
+	padding:2px;
+    text-align: center;
+    float: left;
+  }
+
+  .service-class{
+    background: #ab1234;
+    margin-top: 1px;
+    padding-bottom: 0;
+  }
+  .sc-list{
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+<div id="app">
+
+    <div class="panel panel-info" v-for="hanzi in hanzis" >
+        <div class="panel-heading">
+            <h3 class="panel-title">{{hanzi.key}}</h3>
+        </div>
+        <div class="panel-body">
+
+            <div class="service-class">
+                <div class="sc-list">
+                    <div class="sc-item"  v-for="v in hanzi.value"  >
+                        <div class="text" @click="pyClick($event)" :val="v">{{ v }}</div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<script>
+const app = {
+  data() {
+    var hanzis=[];
+    var url = window.location.href ;   //获取当前url
+     var str = url.split('?')[1];       //获取?之后的参数字符串
+     var str_arr = str.split('&');      //参数字符串分割为数组
+     for(var i=0;i<str_arr.length;i++){         //遍历数组，拿到json对象
+        var arr = str_arr[i].split('=')
+        if(arr[0]=='pinying')
+        {
+            for(var j=0;j<pinyinghanzi.length;j++)
+                  {
+                        if(pinyinghanzi[j].key==arr[1]){
+                        var arr  =
+                             {
+                                 "key" : pinyinghanzi[j].key,
+                                 "value" : pinyinghanzi[j].value
+                             }
+                          hanzis.push(arr);
+                          console.log(hanzis)
+                        }
+                   }
+
+        }
+        console.log(arr)
+     }
+
+    return {
+      hanzis: hanzis
+    }
+  },
+  methods: {
+    pyClick(e) {
+		var target = e.target || window.e.srcElement
+	       //获取对应元素的id值
+		  //alert(target.getAttribute('val'))
+		  //这里是js调用android函数
+		  Android.syncExecWenzi(target.getAttribute('val'));
+		}
+	  }
+}
+
+Vue.createApp(app).mount('#app')
+</script>
+</body>
+</html>
