@@ -9,7 +9,9 @@ import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.View
 import com.example.myfunexercise.R
-
+/**
+ * ABCgggg
+ * */
 class DrawBoardView @JvmOverloads constructor(
         context: Context,
         attrs: AttributeSet? = null,
